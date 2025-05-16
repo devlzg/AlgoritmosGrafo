@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Matriz {
     private ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
@@ -89,20 +91,31 @@ public class Matriz {
         }
     }
 
-    public void identificarTodosCaminhos(int origem, int destino) {
-        System.out.println("Origem: " + origem);
-        System.out.println("Destino: " + destino);
-        System.out.println("Matriz: " + this.matriz);
-    }
-
-    public void identificarMenorCaminho(int origem, int destino) {
-        System.out.println("Origem: " + origem);
-        System.out.println("Destino: " + destino);
-    }
-
-    public void identificarMaiorCaminho(int origem, int destino) {
-        System.out.println("Origem: " + origem);
-        System.out.println("Destino: " + destino);
+    public Map<Integer, Map<Integer, Integer>> converterParaHashMap() {
+        // primeiro cria a estrutura que armazenará tudo
+        Map<Integer, Map<Integer, Integer>> grafo = new HashMap<>(); 
+        
+        // percorre cada vértice de origem, e cria um hashmap que representa seus vizinhos
+        for (int origem = 0; origem < this.ordem; origem++){
+            // mapa de vizinhos pra cada vértice
+            Map<Integer, Integer> vizinhos = new HashMap<>();
+            
+            // pega todas as conexões possíveis
+            for (int destino = 0; destino < this.ordem; destino++){
+                // pega o peso da aresta
+                int peso = matriz.get(origem).get(destino);
+                
+                // adiciona nos vizinhos somente se houver conexão
+                if (peso > 0) {
+                    vizinhos.put(destino, peso);
+                }
+            }
+            // so adiciona no grafo vertices que possuem conexões
+            if (!vizinhos.isEmpty()) {
+                grafo.put(origem, vizinhos);
+            }
+        }
+        return grafo;
     }
 
     public int getOrdem() {

@@ -39,6 +39,7 @@ public class Main {
 
     public static void main(String[] args) {
         Matriz matriz = new Matriz();
+        Grafo grafo = new Grafo();
         Scanner scanner = new Scanner(System.in);
         int escolha;
 
@@ -64,6 +65,7 @@ public class Main {
                             System.out.println("Por favor, digite um número válido.");
                             scanner.next();
                         }
+                        grafo.setHashMapAdjacencia(matriz.converterParaHashMap());
                         System.out.println();
                         break;
                     case 2:
@@ -89,6 +91,7 @@ public class Main {
                         } catch (RuntimeException e){
                             System.out.println("\nErro: " + e.getMessage());
                         }
+                        grafo.setHashMapAdjacencia(matriz.converterParaHashMap());
                         break;
                     case 3:
                         try {
@@ -109,7 +112,7 @@ public class Main {
                             int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
                             int verticeDestino = menuSelecionarDestino(matriz, scanner);
 
-                            matriz.identificarTodosCaminhos(verticeOrigem, verticeDestino);
+                            grafo.identificarTodosCaminhos(verticeOrigem, verticeDestino);
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
@@ -123,7 +126,7 @@ public class Main {
                             int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
                             int verticeDestino = menuSelecionarDestino(matriz, scanner);
 
-                            matriz.identificarMenorCaminho(verticeOrigem, verticeDestino);
+                            grafo.identificarMenorCaminho(verticeOrigem, verticeDestino);
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
@@ -137,7 +140,7 @@ public class Main {
                             int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
                             int verticeDestino = menuSelecionarDestino(matriz, scanner);
 
-                            matriz.identificarMaiorCaminho(verticeOrigem, verticeDestino);
+                            grafo.identificarMaiorCaminho(verticeOrigem, verticeDestino);
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
