@@ -10,6 +10,7 @@ public class Main {
         System.out.println("4 - Identificar caminhos possíveis");
         System.out.println("5 - Identificar menor caminho");
         System.out.println("6 - Identificar maior caminho");
+        System.out.println("7 - Gerar grafo pronto");
         System.out.println("0 - Sair");
         System.out.print("Selecione uma opção: ");
     }
@@ -145,8 +146,13 @@ public class Main {
                             System.out.println("\nErro: " + e.getMessage());
                         }
                         break;
+                    case 7:
+                        matriz.gerarMatrizPronta();
+                        grafo.setHashMapAdjacencia(matriz.converterParaHashMap());
+                        System.out.println("\nGrafo gerado com sucesso!");
+                        break;
                     default:
-                        System.out.println("Opção inválida");
+                        System.out.println("\nOpção inválida");
                         break;
                 }
             } catch (RuntimeException e) {

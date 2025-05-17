@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -116,6 +117,31 @@ public class Matriz {
             }
         }
         return grafo;
+    }
+
+    public void gerarMatrizPronta() {
+        matriz = new ArrayList<>();
+
+        // Linha 0 - A
+        matriz.add(new ArrayList<>(Arrays.asList(0, 12, 4, 0, 0, 0)));
+
+        // Linha 1 - B
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 10, 6, 0, 0)));
+
+        // Linha 2 - C
+        matriz.add(new ArrayList<>(Arrays.asList(0, 6, 0, 8, 2, 0)));
+
+        // Linha 3 - D
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 6)));
+
+        // Linha 4 - E
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 6)));
+
+        // Linha 5 - F
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0)));
+
+        this.ordem = 6;
+
     }
 
     public int getOrdem() {
