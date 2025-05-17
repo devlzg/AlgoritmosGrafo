@@ -93,29 +93,24 @@ public class Matriz {
     }
 
     public Map<Integer, Map<Integer, Integer>> converterParaHashMap() {
-        // primeiro cria a estrutura que armazenará tudo
         Map<Integer, Map<Integer, Integer>> grafo = new HashMap<>(); 
         
-        // percorre cada vértice de origem, e cria um hashmap que representa seus vizinhos
-        for (int origem = 0; origem < this.ordem; origem++){
-            // mapa de vizinhos pra cada vértice
-            Map<Integer, Integer> vizinhos = new HashMap<>();
-            
-            // pega todas as conexões possíveis
-            for (int destino = 0; destino < this.ordem; destino++){
-                // pega o peso da aresta
+        for (int origem = 0; origem < this.ordem; origem++) {
+            grafo.put(origem, new HashMap<>()); // inicializa mesmo que não haja vizinhos
+        }
+
+        // preenche as conexões que existem
+        for (int origem = 0; origem < this.ordem; origem++) {
+            Map<Integer, Integer> vizinhos = grafo.get(origem);
+
+            for (int destino =0; destino < this.ordem; destino++) {
                 int peso = matriz.get(origem).get(destino);
-                
-                // adiciona nos vizinhos somente se houver conexão
                 if (peso > 0) {
-                    vizinhos.put(destino, peso);
+                    vizinhos.put(destino, peso); // so adiciona conexões válidas
                 }
             }
-            // so adiciona no grafo vertices que possuem conexões
-            if (!vizinhos.isEmpty()) {
-                grafo.put(origem, vizinhos);
-            }
         }
+
         return grafo;
     }
 
