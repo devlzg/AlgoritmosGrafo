@@ -121,16 +121,16 @@ public class Matriz {
         matriz.add(new ArrayList<>(Arrays.asList(0, 12, 4, 0, 0, 0)));
 
         // Linha 1 - B
-        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 10, 6, 0, 0)));
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 6, 6, 0, 0)));
 
         // Linha 2 - C
-        matriz.add(new ArrayList<>(Arrays.asList(0, 6, 0, 8, 2, 0)));
+        matriz.add(new ArrayList<>(Arrays.asList(0, 10, 0, 0, 2, 0)));
 
         // Linha 3 - D
-        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 6)));
+        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 8, 0, 0, 6)));
 
         // Linha 4 - E
-        matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 6)));
+        matriz.add(new ArrayList<>(Arrays.asList(0, 2, 0, 0, 0, 6)));
 
         // Linha 5 - F
         matriz.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0)));

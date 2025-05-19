@@ -16,26 +16,14 @@ public class Main {
         System.out.print("Selecione uma opção: ");
     }
 
-    static int menuSelecionarOrigem(Matriz matriz, Scanner scanner) {
-        System.out.print("Digite o vértice de origem: ");
-        int verticeOrigem = scanner.nextInt();
-        if (verticeOrigem >= matriz.getOrdem()){
-            throw new RuntimeException("Valor de origem fora dos limites da matriz, " +
+    static int menuSelecionarVertice(Matriz matriz, Scanner scanner) {
+        int verticeVertice = scanner.nextInt();
+        if (verticeVertice >= matriz.getOrdem()){
+            throw new RuntimeException("Valor está fora dos limites da matriz, " +
                     "lembre-se que arrays começam no índice 0");
         }
 
-        return verticeOrigem;
-    }
-
-    static int menuSelecionarDestino(Matriz matriz, Scanner scanner) {
-        System.out.print("Digite o vértice de destino: ");
-        int verticeDestino = scanner.nextInt();
-        if (verticeDestino >= matriz.getOrdem()){
-            throw new RuntimeException("Valor de destino fora dos limites da matriz, " +
-                    "lembre-se que arrays começam no índice 0");
-        }
-
-        return verticeDestino;
+        return verticeVertice;
     }
 
 
@@ -76,8 +64,10 @@ public class Main {
                                 throw new RuntimeException("A Matriz precisa ser inicializada.");
                             }
 
-                            int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
-                            int verticeDestino = menuSelecionarDestino(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de origem: ");
+                            int verticeOrigem = menuSelecionarVertice(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de destino: ");
+                            int verticeDestino = menuSelecionarVertice(matriz, scanner);
 
                             if (verticeOrigem == verticeDestino) {
                                 throw new RuntimeException("Esse grafo não permite laços.");
@@ -111,11 +101,15 @@ public class Main {
                                 throw new RuntimeException("A Matriz precisa ser inicializada.");
                             }
 
-                            int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
-                            int verticeDestino = menuSelecionarDestino(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de origem: ");
+                            int verticeOrigem = menuSelecionarVertice(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de destino: ");
+                            int verticeDestino = menuSelecionarVertice(matriz, scanner);
 
-                            List<Integer> menorCaminho = grafo.identificarMenorCaminho(verticeOrigem, verticeDestino);
-                            System.out.println("\nO menor caminho entre " + verticeOrigem + " e " + verticeDestino + " é: " + menorCaminho);
+                            Grafo.ResultadoDijkstra resultadoMenorCaminho = grafo.identificarMenorCaminho(verticeOrigem, verticeDestino);
+                            System.out.println("\nO menor caminho entre " + verticeOrigem +
+                                    " e " + verticeDestino + " é: " + resultadoMenorCaminho.caminho());
+                            System.out.println("Peso: " + resultadoMenorCaminho.somaPesos());
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
@@ -126,10 +120,15 @@ public class Main {
                                 throw new RuntimeException("A Matriz precisa ser inicializada.");
                             }
 
-                            int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
-                            int verticeDestino = menuSelecionarDestino(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de origem: ");
+                            int verticeOrigem = menuSelecionarVertice(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de destino: ");
+                            int verticeDestino = menuSelecionarVertice(matriz, scanner);
 
-                            grafo.identificarMaiorCaminho(verticeOrigem, verticeDestino);
+                            Grafo.ResultadoMaiorCaminho resultadoMaiorCaminho = grafo.identificarMaiorCaminho(verticeOrigem, verticeDestino);
+                            System.out.println("\nO maior caminho entre " + verticeOrigem +
+                                    " e " + verticeDestino + " é: " + resultadoMaiorCaminho.caminho());
+                            System.out.println("Peso: " + resultadoMaiorCaminho.somaPesos());
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
@@ -140,10 +139,12 @@ public class Main {
                                 throw new RuntimeException("A Matriz precisa ser inicializada.");
                             }
 
-                            int verticeOrigem = menuSelecionarOrigem(matriz, scanner);
-                            int verticeDestino = menuSelecionarDestino(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de origem: ");
+                            int verticeOrigem = menuSelecionarVertice(matriz, scanner);
+                            System.out.print("\nDigite o número do vértice de destino: ");
+                            int verticeDestino = menuSelecionarVertice(matriz, scanner);
 
-                            grafo.identificarTodosCaminhos(verticeOrigem, verticeDestino);
+                            // grafo.identificarTodosCaminhos(verticeOrigem, verticeDestino);
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }
