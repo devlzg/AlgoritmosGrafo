@@ -1,5 +1,4 @@
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -144,7 +143,12 @@ public class Main {
                             System.out.print("\nDigite o número do vértice de destino: ");
                             int verticeDestino = menuSelecionarVertice(matriz, scanner);
 
-                            // grafo.identificarTodosCaminhos(verticeOrigem, verticeDestino);
+                            Grafo.ResultadoTodosCaminhos resultadoTodosCaminhos = grafo.identificarTodosCaminhos(verticeOrigem, verticeDestino);
+
+                            for (int i = 0; i < resultadoTodosCaminhos.caminhos().toArray().length; i++) {
+                                System.out.println("\nCaminho " + i + ": " + resultadoTodosCaminhos.caminhos().get(i));
+                                System.out.println("Peso: " + resultadoTodosCaminhos.somasPesos().get(i));
+                            }
                         } catch (RuntimeException e) {
                             System.out.println("\nErro: " + e.getMessage());
                         }

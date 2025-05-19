@@ -20,7 +20,7 @@ public class Grafo {
         }
     }
 
-    private List<Integer> reconstruirCaminho(Map<Integer, VerticeInfo> infoVertices, int origem, int destino) {
+    private List<Integer> reconstruirCaminho(Map<Integer, VerticeInfo> infoVertices, int destino) {
         LinkedList<Integer> caminho = new LinkedList<>();
 
         // Se o destino não foi alcançado ou não existe, retorna lista vazia
@@ -89,7 +89,7 @@ public class Grafo {
         }
 
         /* Reconstrução do caminho e cálculo da soma dos pesos */
-        List<Integer> caminho = reconstruirCaminho(infoVertices, origem, destino);
+        List<Integer> caminho = reconstruirCaminho(infoVertices,  destino);
         int somaPesos = infoVertices.get(destino).distancia; // A distância total é a soma dos pesos
 
         /* Se não há caminho, retorna lista vazia e soma zero */
@@ -158,6 +158,65 @@ public class Grafo {
 
                 if (!visitados.contains(vizinho)) {
                     dfsMaiorCaminho(vizinho, destino, visitados, caminhoAtual, somaAtual + peso, melhorCaminho, maiorSoma);
+                }
+            }
+        }
+
+        // Backtrack: remove o vértice atual do caminho e desmarca como visitado
+        visitados.remove(atual);
+        caminhoAtual.removeLast();
+    }
+
+    public record ResultadoTodosCaminhos(List<List<Integer>> caminhos, List<Integer> somasPesos) {
+    }
+
+    public ResultadoTodosCaminhos identificarTodosCaminhos(int origem, int destino) {
+        if (hashMapAdjacencia == null || hashMapAdjacencia.isEmpty()) {
+            return new ResultadoTodosCaminhos(Collections.emptyList(), Collections.emptyList());
+        }
+
+        // Listas para armazenar todos os caminhos e suas respectivas somas
+        List<List<Integer>> todosCaminhos = new ArrayList<>();
+        List<Integer> todasSomas = new ArrayList<>();
+
+        // Conjunto para rastrear vértices visitados no caminho atual
+        Set<Integer> visitados = new HashSet<>();
+
+        // Lista para armazenar o caminho atual durante a DFS
+        List<Integer> caminhoAtual = new ArrayList<>();
+
+        // Chamada inicial da DFS
+        dfsTodosCaminhos(origem, destino, visitados, caminhoAtual, 0, todosCaminhos, todasSomas);
+
+        return new ResultadoTodosCaminhos(todosCaminhos, todasSomas);
+    }
+
+    private void dfsTodosCaminhos(
+            int atual,
+            int destino,
+            Set<Integer> visitados,
+            List<Integer> caminhoAtual,
+            int somaAtual,
+            List<List<Integer>> todosCaminhos,
+            List<Integer> todasSomas) {
+
+        // Marca o vértice atual como visitado e adiciona ao caminho
+        visitados.add(atual);
+        caminhoAtual.add(atual);
+
+        // Se chegamos ao destino, adiciona o caminho e a soma às listas
+        if (atual == destino) {
+            todosCaminhos.add(new ArrayList<>(caminhoAtual));
+            todasSomas.add(somaAtual);
+        } else {
+            // Explora todos os vizinhos não visitados
+            Map<Integer, Integer> vizinhos = hashMapAdjacencia.getOrDefault(atual, new HashMap<>());
+            for (Map.Entry<Integer, Integer> entrada : vizinhos.entrySet()) {
+                int vizinho = entrada.getKey();
+                int peso = entrada.getValue();
+
+                if (!visitados.contains(vizinho)) {
+                    dfsTodosCaminhos(vizinho, destino, visitados, caminhoAtual, somaAtual + peso, todosCaminhos, todasSomas);
                 }
             }
         }
